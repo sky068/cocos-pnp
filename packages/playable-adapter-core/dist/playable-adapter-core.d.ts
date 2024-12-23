@@ -44,6 +44,7 @@ type TChannel =
   | 'Rubeex'
   | 'Tiktok'
   | 'Unity'
+  | 'Tencent'
 
 type TChannelRC = {
   head: string
@@ -62,7 +63,9 @@ type TAdapterRC = {
   }
   tinify?: boolean
   tinifyApiKey?: string
-  isZip?: boolean
+  isZip?: boolean,
+  name?: string,
+  version?: string,
 }
 
 declare type TMode = 'parallel' | 'serial';

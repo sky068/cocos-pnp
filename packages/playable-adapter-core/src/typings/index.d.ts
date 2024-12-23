@@ -37,7 +37,16 @@ export type TPlatform =
 export type TPlayableConfig = {
   /** 0 -> 横竖 1 -> 竖屏 2 -> 横屏 */
   playable_orientation: 0 | 1 | 2,
-  playable_languages: string[]
+  playable_languages: string[],
+}
+
+export type TPlayableConfigTencent = {
+  name: string,
+  version: string, 
+  config: {
+    /** 0 -> 横竖 1 -> 竖屏 2 -> 横屏 */
+    play_direction: 0 | 1 | 2
+  }
 }
 
 export type TResourceData = { [key: string]: string }
@@ -70,6 +79,7 @@ export type TChannel =
   | 'Rubeex'
   | 'Tiktok'
   | 'Unity'
+  | 'Tencent'
 
 export type TChannelRC = {
   head: string
@@ -88,5 +98,7 @@ export type TAdapterRC = {
   }
   tinify?: boolean
   tinifyApiKey?: string
-  isZip?: boolean
+  isZip?: boolean,
+  name?: string,
+  version?: string,
 }

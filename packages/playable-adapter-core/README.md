@@ -218,7 +218,8 @@ type TChannel =
   | "Pangle"
   | "Rubeex"
   | "Tiktok"
-  | "Unity";
+  | "Unity"
+  | "Tencent";
 
 const injectOptions: {
   [key in TChannel]: {

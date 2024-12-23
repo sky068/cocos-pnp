@@ -49,6 +49,7 @@ type TChannel =
   | 'Rubeex'
   | 'Tiktok'
   | 'Unity'
+  | 'Tencent'
 
 type TIpcMsgEvent =
   /** 编译状态更新时，发送的消息 */

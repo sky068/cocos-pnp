@@ -64,6 +64,7 @@ type TChannel =
   | 'Rubeex'
   | 'Tiktok'
   | 'Unity'
+  | 'Tencent'
 
 type TPlatform =
   | 'web-desktop'

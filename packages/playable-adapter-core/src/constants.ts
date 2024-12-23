@@ -1,9 +1,17 @@
-import { TPlayableConfig } from '@/typings'
+import { TPlayableConfig, TPlayableConfigTencent } from '@/typings'
 
 // game config
 export const PLAYABLE_DEFAULT_CONFIG: TPlayableConfig = {
   playable_orientation: 0,
-  playable_languages: ["ja", "zh", "ar", "es", "en", "ko", "pt", "ru", "vi"]
+  playable_languages: ["ja", "zh", "ar", "es", "en", "ko", "pt", "ru", "vi"],
+}
+
+export const PLAYABLE_DEFAULT_CONFIG_TENCENT: TPlayableConfigTencent = {
+  name: "test tencent playable",
+  version: "0.0.1",
+  config: {
+    play_direction: 0
+  }
 }
 
 export const REPLACE_SYMBOL = '{{__adv_channels_adapter__}}'

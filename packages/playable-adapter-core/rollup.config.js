@@ -60,7 +60,7 @@ export default [
           { find: '@', replacement: __dirname + '/src' }
         ]
       }),
-      dts()
+      dts(),
     ],
   }
 ]
