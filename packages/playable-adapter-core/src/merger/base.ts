@@ -241,7 +241,7 @@ export const genSingleFile = async (options: TOptions) => {
   let htmlStr = readToPath(htmlPath, 'utf-8')
   // NOTE: 更新游戏名字
   const { name = "" } = getAdapterRCJson() || {};
-  htmlStr = htmlStr.replace("<%=project%>", name);
+  htmlStr = htmlStr.replace("<%=projectName%>", name);
 
   const $ = load(htmlStr)
 
