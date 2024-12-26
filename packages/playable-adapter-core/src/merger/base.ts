@@ -46,23 +46,51 @@ const paddingStyleTags = ($: CheerioAPI) => {
   $('link[type="text/css"]').remove()
 
   // Support for splash screen
+  // $('head').find('style').each((_index, elem) => {
+  //   // Match css url
+  //   const cssUrlReg = /url\("?'?.*"?'?\)/g
+  //   let styleTagStr = $(elem).html() || ''
+  //   console.info(`【Padding stype, elem = ${styleTagStr}`);
+  //   const matchStrList = styleTagStr.match(cssUrlReg)
+  //   if (!matchStrList) return
+
+  //   matchStrList.forEach((str) => {
+  //     // Match url
+  //     const strReg = /"|'|url|\(|\)/g
+  //     const imgUrl = str.replace(strReg, '')
+  //     console.info(`【Padding stype, ${str}`);
+  //     console.info(`【Padding stype, imgUrl = ${imgUrl}`);
+  //     const imgBase64 = enableSplash ? getBase64FromFile(join(originPkgPath, imgUrl)) : TRANSPARENT_GIF
+  //     styleTagStr = styleTagStr.replace(cssUrlReg, `url(${imgBase64})`)
+  //   })
+  //   $(elem).html(styleTagStr).html()
+  // })
+
+  // 来自chatgpt 分别替换url
   $('head').find('style').each((_index, elem) => {
-    // Match css url
-    const cssUrlReg = /url\("?'?.*"?'?\)/g
-    let styleTagStr = $(elem).html() || ''
+    // Match CSS url
+    const cssUrlReg = /url\(["']?(.*?)["']?\)/g;
+    let styleTagStr = $(elem).html() || '';
+    console.info(`【Parsing style, original content: ${styleTagStr}`);
+  
+    // Replace each matched URL individually
+    styleTagStr = styleTagStr.replace(cssUrlReg, (match, url) => {
+      console.info(`【Parsing style, matched URL: ${url}`);
+      
+      // Process the URL
+      const imgUrl = url.trim();
+      const imgBase64 = enableSplash
+        ? getBase64FromFile(join(originPkgPath, imgUrl))
+        : TRANSPARENT_GIF;
+      
+      console.info(`【Parsing style, converted to Base64: ${imgBase64}`);
+      return `url(${imgBase64})`;
+    });
+  
+    // Update the style tag content
+    $(elem).html(styleTagStr).html();
+  });
 
-    const matchStrList = styleTagStr.match(cssUrlReg)
-    if (!matchStrList) return
-
-    matchStrList.forEach((str) => {
-      // Match url
-      const strReg = /"|'|url|\(|\)/g
-      const imgUrl = str.replace(strReg, '')
-      const imgBase64 = enableSplash ? getBase64FromFile(join(originPkgPath, imgUrl)) : TRANSPARENT_GIF
-      styleTagStr = styleTagStr.replace(cssUrlReg, `url(${imgBase64})`)
-    })
-    $(elem).html(styleTagStr).html()
-  })
 }
 
 const paddingScriptTags = ($: CheerioAPI) => {
