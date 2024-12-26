@@ -17,7 +17,7 @@ export const PLAYABLE_DEFAULT_CONFIG_TENCENT: TPlayableConfigTencent = {
 export const REPLACE_SYMBOL = '{{__adv_channels_adapter__}}'
 export const ADAPTER_FETCH = 'adapterFetch'
 // every channel's adapter zip file size limit
-export const MAX_ZIP_SIZE = 2 * 1024 * 1024
+export const MAX_ZIP_SIZE = 5 * 1024 * 1024
 
 export const TO_STRING_EXTNAME = [
   '.txt',
