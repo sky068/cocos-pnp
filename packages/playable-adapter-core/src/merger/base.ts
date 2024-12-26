@@ -237,7 +237,11 @@ export const genSingleFile = async (options: TOptions) => {
 
   // Build related directories and file paths
   const htmlPath = join(originPkgPath, '/index.html')
-  const htmlStr = readToPath(htmlPath, 'utf-8')
+  
+  let htmlStr = readToPath(htmlPath, 'utf-8')
+  // NOTE: 更新游戏名字
+  const { name = "" } = getAdapterRCJson() || {};
+  htmlStr = htmlStr.replace("<%=project%>", name);
 
   const $ = load(htmlStr)
 
