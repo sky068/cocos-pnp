@@ -1,7 +1,7 @@
 import { APPEND_TO_HEAD } from "./inject-vars"
 import { exportZipFromPkg } from "@/exporter/3x"
 import { TChannel, TChannelPkgOptions } from "@/typings"
-import { exportConfigJson, exportConfigJsonForTencent, getChannelRCSdkScript } from "@/utils"
+import { exportConfigJsonForTencent, getChannelRCSdkScript } from "@/utils"
 
 export const export3xTencent = async (options: TChannelPkgOptions) => {
   const { orientation } = options
