@@ -101,4 +101,5 @@ export type TAdapterRC = {
   isZip?: boolean,
   name?: string,
   version?: string,
+  lang_type?: number,
 }
