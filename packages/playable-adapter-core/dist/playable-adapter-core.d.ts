@@ -50,6 +50,7 @@ type TChannelRC = {
   head: string
   body: string
   sdkScript: string
+  isSingle: boolean
 }
 
 type TAdapterRC = {

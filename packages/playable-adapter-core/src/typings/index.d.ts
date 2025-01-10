@@ -85,6 +85,7 @@ export type TChannelRC = {
   head: string
   body: string
   sdkScript: string
+  isSingle: boolean
 }
 
 export type TAdapterRC = {
