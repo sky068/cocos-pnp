@@ -1,5 +1,5 @@
 import { AD_SDK_SCRIPT, LANDSCAPE_META, PORTRAIT_META } from './inject-vars'
-import { exportSingleFile } from "@/exporter/2x"
+import { exportZipFromPkg } from "@/exporter/2x"
 import { getChannelRCSdkScript } from '@/utils'
 import { TChannel, TChannelPkgOptions } from "@/typings"
 
@@ -7,7 +7,7 @@ export const export2xGoogle = async (options: TChannelPkgOptions) => {
   const { orientation } = options
   const channel: TChannel = 'Google'
 
-  await exportSingleFile({
+  await exportZipFromPkg({
     ...options,
     channel,
     transformHTML: async ($) => {
