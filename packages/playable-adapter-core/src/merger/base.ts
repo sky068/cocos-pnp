@@ -5,6 +5,7 @@ import {
   getBase64FromFile,
   getFileSize,
   getOriginPkgPath,
+  getProjectName,
   getResourceMapper,
   readToPath,
   writeToPath
@@ -240,8 +241,8 @@ export const genSingleFile = async (options: TOptions) => {
   
   let htmlStr = readToPath(htmlPath, 'utf-8')
   // NOTE: 更新游戏名字
-  const { name = "" } = getAdapterRCJson() || {};
-  htmlStr = htmlStr.replace("<%=projectName%>", name);
+  const name = getProjectName();
+  htmlStr = htmlStr.replace("<%gameName%>", name);
 
   const $ = load(htmlStr)
 

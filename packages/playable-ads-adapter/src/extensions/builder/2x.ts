@@ -44,8 +44,9 @@ export const initBuildFinishedEvent = async (options: TBuildOptions, callback?: 
     adapterBuildConfig: {
       ...adapterBuildConfig,
       buildPlatform: options.platform,
-      orientation: options.webOrientation
-    }
+      orientation: options.webOrientation,
+    },
+    name: options.title
   }
 
   try {

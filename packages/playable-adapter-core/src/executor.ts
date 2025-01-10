@@ -10,7 +10,8 @@ import { mountGlobalVars, unmountGlobalVars } from "@/global"
 
 type TOptions = {
   buildFolderPath: string,
-  adapterBuildConfig?: TAdapterRC | null
+  adapterBuildConfig?: TAdapterRC | null,
+  name?: string
 }
 
 export const exec2xAdapter = async (options: TOptions, config?: { mode: TMode }) => {

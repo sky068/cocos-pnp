@@ -5,7 +5,7 @@ import { MAX_ZIP_SIZE, REPLACE_SYMBOL } from "@/constants";
 import { injectFromRCJson } from "@/helpers/dom";
 import { TBuilderOptions, TResourceData, TZipFromSingleFileOptions } from "@/typings";
 import { getGlobalProjectBuildPath } from '@/global'
-import { writeToPath, readToPath, getOriginPkgPath, copyDirToPath, replaceGlobalSymbol, rmSync } from "@/utils"
+import { writeToPath, readToPath, getOriginPkgPath, copyDirToPath, replaceGlobalSymbol, rmSync, getFileNameSuffix, getProjectName } from "@/utils"
 import { deflate } from 'pako'
 import { jszipCode } from "@/helpers/injects";
 
@@ -122,7 +122,8 @@ export const exportSingleFile = async (singleFilePath: string, options: TBuilder
 
   console.info(`【${channel}】adaptation started`)
   const singleHtml = readToPath(singleFilePath, 'utf-8')
-  const targetPath = join(getGlobalProjectBuildPath(), `${channel}.html`)
+  const suffix = getFileNameSuffix();
+  const targetPath = join(getGlobalProjectBuildPath(), `${channel}_${suffix}.html`)
 
   // Replace global variables.
   let $ = load(singleHtml)
@@ -151,7 +152,8 @@ export const exportZipFromPkg = async (options: TBuilderOptions) => {
   // Copy the folder.
   const originPkgPath = getOriginPkgPath()
   const projectBuildPath = getGlobalProjectBuildPath()
-  const destPath = join(projectBuildPath, channel)
+  const suffix = getFileNameSuffix();
+  const destPath = join(projectBuildPath, channel + "_" + suffix)
   copyDirToPath(originPkgPath, destPath)
 
   // Replace global variables.
@@ -159,10 +161,13 @@ export const exportZipFromPkg = async (options: TBuilderOptions) => {
 
   // Inject additional configuration.
   const singleHtmlPath = join(destPath, '/index.html')
-  const singleHtml = readToPath(singleHtmlPath, 'utf-8')
+  let singleHtml = readToPath(singleHtmlPath, 'utf-8')
+  // NOTE: 更新游戏名字
+  const name = getProjectName();
+  singleHtml = singleHtml.replace("<%gameName%>", name);
   const $ = load(singleHtml)
   await injectFromRCJson($, channel)
-
+ 
   // Add the SDK script.
   if (transformHTML) {
     await transformHTML($)
@@ -185,7 +190,8 @@ export const exportDirZipFromSingleFile = async (singleFilePath: string, options
   // Copy the folder.
   const singleHtmlPath = singleFilePath
   const projectBuildPath = getGlobalProjectBuildPath()
-  const destPath = join(projectBuildPath, channel)
+  const suffix = getFileNameSuffix();
+  const destPath = join(projectBuildPath, channel + "_" + suffix)
 
   // Empty the contents of the folder first.
   rmSync(destPath)

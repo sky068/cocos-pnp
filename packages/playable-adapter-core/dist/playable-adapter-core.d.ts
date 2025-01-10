@@ -64,9 +64,9 @@ type TAdapterRC = {
   tinify?: boolean
   tinifyApiKey?: string
   isZip?: boolean,
-  name?: string,
   version?: string,
   lang_type?: number,
+  name?: string
 }
 
 declare type TMode = 'parallel' | 'serial';
@@ -74,6 +74,7 @@ declare type TMode = 'parallel' | 'serial';
 declare type TOptions = {
     buildFolderPath: string;
     adapterBuildConfig?: TAdapterRC | null;
+    name?: string;
 };
 declare const exec2xAdapter: (options: TOptions, config?: {
     mode: TMode;

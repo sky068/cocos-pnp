@@ -1,6 +1,6 @@
 import { TPlayableConfig, TPlayableConfigTencent, TWebOrientations } from '@/typings'
 import { ADAPTER_FETCH, PLAYABLE_DEFAULT_CONFIG, PLAYABLE_DEFAULT_CONFIG_TENCENT } from "@/constants"
-import { getAdapterRCJson, writeToPath } from './file-system';
+import { getAdapterRCJson, getProjectName, writeToPath } from './file-system';
 import { join } from "path";
 
 const getPlayableConfig = (options?: { orientation?: TWebOrientations, languages?: string[] }) => {
@@ -31,7 +31,7 @@ const getPlayableConfigForTencent = (options?: { orientation?: TWebOrientations}
   const rcJson = getAdapterRCJson() || {};
   const direction = orientation || rcJson?.orientation || "auto";
   const playableConfig: TPlayableConfigTencent = {
-      name: rcJson?.name || PLAYABLE_DEFAULT_CONFIG_TENCENT.name,
+      name: getProjectName() || PLAYABLE_DEFAULT_CONFIG_TENCENT.name,
       version: rcJson?.version || PLAYABLE_DEFAULT_CONFIG_TENCENT.version,
       config: { play_direction: OrientationMap[direction] }
     }

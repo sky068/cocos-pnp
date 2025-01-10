@@ -478,7 +478,7 @@ type TAdapterRC = {
     [key in TChannel]: TChannelRC
   }
   tinify?: boolean
-  tinifyApiKey?: string
+  tinifyApiKey?: string,
 }
 
 type TResourceData = { [key: string]: string }

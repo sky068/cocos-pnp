@@ -4,10 +4,14 @@ import {
   TChannel,
   TChannelRC,
 } from '@/typings'
-import { getGlobalBuildConfig, getGlobalProjectBuildPath } from "@/global"
+import { getGlobalBuildConfig, getGlobalProjectBuildPath, getGlobalProjectName } from "@/global"
 
 export const getAdapterRCJson = (): TAdapterRC | null => {
   return getGlobalBuildConfig()
+}
+
+export const getProjectName = (): string => {
+  return getGlobalProjectName();
 }
 
 export const getOriginPkgPath = () => {
@@ -53,4 +57,23 @@ export const getRCTinify = (): { tinify: boolean, tinifyApiKey: string, } => {
 export const getChannelRCSdkScript = (channel: TChannel): string => {
   const channelRCJson = getChannelRCJson(channel)
   return (!channelRCJson || !channelRCJson.sdkScript) ? '' : channelRCJson.sdkScript
+}
+
+export const getFileNameSuffix = ():string => {
+  const rcJson = getAdapterRCJson();
+  const version = rcJson?.version || "";
+  const name = getProjectName().replace(/\s+/g, "");
+  const t = new Date();
+  const time = `${t.getFullYear()}-${t.getMonth() + 1}-${t.getDate()}-${t.getHours()}-${t.getMinutes()}`
+  let suffix = "";
+  if (name) {
+    suffix += name;
+    suffix += "_";
+  }
+  if (version) {
+    suffix += version;
+    suffix += "_";
+  }
+  suffix += time;
+  return suffix;
 }
