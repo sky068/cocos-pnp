@@ -125,8 +125,13 @@ export const exportSingleFile = async (singleFilePath: string, options: TBuilder
   const suffix = getFileNameSuffix();
   const targetPath = join(getGlobalProjectBuildPath(), `${channel}_${suffix}.html`)
 
-  // Replace global variables.
   let $ = load(singleHtml)
+
+  // 单独保存一份给wx用
+  const wxPath = join(getGlobalProjectBuildPath(), `wx_${suffix}.html`)
+  writeToPath(wxPath, $.html())
+
+  // Replace global variables.
   fillCodeToHTML($, options)
 
   // Inject additional configuration.
