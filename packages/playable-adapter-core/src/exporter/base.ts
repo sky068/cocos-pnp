@@ -5,7 +5,7 @@ import { MAX_ZIP_SIZE, REPLACE_SYMBOL } from "@/constants";
 import { injectFromRCJson } from "@/helpers/dom";
 import { TBuilderOptions, TResourceData, TZipFromSingleFileOptions } from "@/typings";
 import { getGlobalProjectBuildPath } from '@/global'
-import { writeToPath, readToPath, getOriginPkgPath, copyDirToPath, replaceGlobalSymbol, rmSync, getFileNameSuffix, getProjectName } from "@/utils"
+import { writeToPath, readToPath, getOriginPkgPath, copyDirToPath, replaceGlobalSymbol, rmSync, getProjectName, getExportName } from "@/utils"
 import { deflate } from 'pako'
 import { jszipCode } from "@/helpers/injects";
 
@@ -122,13 +122,14 @@ export const exportSingleFile = async (singleFilePath: string, options: TBuilder
 
   console.info(`【${channel}】adaptation started`)
   const singleHtml = readToPath(singleFilePath, 'utf-8')
-  const suffix = getFileNameSuffix();
-  const targetPath = join(getGlobalProjectBuildPath(), `${channel}_${suffix}.html`)
+  const fileName = getExportName(channel);
+  const targetPath = join(getGlobalProjectBuildPath(), `${fileName}.html`)
 
   let $ = load(singleHtml)
 
   // 单独保存一份给wx用
-  const wxPath = join(getGlobalProjectBuildPath(), `wx_${suffix}.html`)
+  const wxFileName = getExportName("Wx");
+  const wxPath = join(getGlobalProjectBuildPath(), `${wxFileName}.html`)
   writeToPath(wxPath, $.html())
 
   // Replace global variables.
@@ -157,8 +158,8 @@ export const exportZipFromPkg = async (options: TBuilderOptions) => {
   // Copy the folder.
   const originPkgPath = getOriginPkgPath()
   const projectBuildPath = getGlobalProjectBuildPath()
-  const suffix = getFileNameSuffix();
-  const destPath = join(projectBuildPath, channel + "_" + suffix)
+  const fileName = getExportName(channel);
+  const destPath = join(projectBuildPath, fileName)
   copyDirToPath(originPkgPath, destPath)
 
   // Replace global variables.
@@ -195,8 +196,8 @@ export const exportDirZipFromSingleFile = async (singleFilePath: string, options
   // Copy the folder.
   const singleHtmlPath = singleFilePath
   const projectBuildPath = getGlobalProjectBuildPath()
-  const suffix = getFileNameSuffix();
-  const destPath = join(projectBuildPath, channel + "_" + suffix)
+  const fileName = getExportName(channel);
+  const destPath = join(projectBuildPath, fileName)
 
   // Empty the contents of the folder first.
   rmSync(destPath)

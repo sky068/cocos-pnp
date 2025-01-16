@@ -59,21 +59,24 @@ export const getChannelRCSdkScript = (channel: TChannel): string => {
   return (!channelRCJson || !channelRCJson.sdkScript) ? '' : channelRCJson.sdkScript
 }
 
-export const getFileNameSuffix = ():string => {
+
+/**
+ * 项目_日期_素材名_素材标签_创意人_出品方_渠道_平台
+ * @param chanel 
+ */
+export const getExportName = (chanel: string): string => {
   const rcJson = getAdapterRCJson();
   const version = rcJson?.version || "";
   const name = getProjectName().replace(/\s+/g, "");
+  const proj = "TW";
   const t = new Date();
-  const time = `${t.getFullYear()}-${t.getMonth() + 1}-${t.getDate()}-${t.getHours()}-${t.getMinutes()}`
-  let suffix = "";
-  if (name) {
-    suffix += name;
-    suffix += "_";
-  }
-  if (version) {
-    suffix += version;
-    suffix += "_";
-  }
-  suffix += time;
-  return suffix;
+  const timeStr = `${t.getFullYear()}-${t.getMonth() + 1}-${t.getDate()}`;
+  const author = rcJson?.author || "author";
+  const producer = rcJson?.producer || "producer";
+  const platform = rcJson?.platform || "ALL";
+  const tag = rcJson?.tag || "试玩";
+  const channelStr = chanel === "AppLovin" ? "Applovin" : chanel;
+
+  let ret = `${proj}_${timeStr}_${name}_${tag}_${author}_${producer}_${channelStr}_${platform}`;
+  return ret;
 }

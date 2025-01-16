@@ -102,5 +102,9 @@ export type TAdapterRC = {
   isZip?: boolean,
   version?: string,
   lang_type?: number,
-  name?: string
+  name?: string,
+  author?: string, 
+  producer?: string,
+  platform?: string,
+  tag?: string
 }
