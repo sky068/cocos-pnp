@@ -61,7 +61,7 @@ export const getChannelRCSdkScript = (channel: TChannel): string => {
 
 
 /**
- * 项目_日期_素材名_素材标签_创意人_出品方_渠道_平台
+ * 项目_日期_素材名-素材标签_创意人_出品方_渠道_平台
  * @param chanel 
  */
 export const getExportName = (chanel: string): string => {
@@ -77,6 +77,6 @@ export const getExportName = (chanel: string): string => {
   const tag = rcJson?.tag || "试玩";
   const channelStr = chanel === "AppLovin" ? "Applovin" : chanel;
 
-  let ret = `${proj}_${timeStr}_${name}_${tag}_${author}_${producer}_${channelStr}_${platform}`;
+  let ret = `${proj}_${timeStr}_${name}-${tag}_${author}_${producer}_${channelStr}_${platform}`;
   return ret;
 }
